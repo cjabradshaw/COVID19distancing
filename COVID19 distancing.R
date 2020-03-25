@@ -7,22 +7,22 @@
       rm(list = ls())
       
       # set up spatial matrix
-      mat.dim <- 20
+      mat.dim <- 20 # size of matrix (landscape)
       spat.layer <- matrix(data=0, nrow=mat.dim, ncol=mat.dim)
       
       popn <- 1000 # population size
-      infect.pr <- 0.02
+      infect.pr <- 0.02 # probability of infection between two individuals per time step
       
-      max.move <- round(mat.dim/2, 0) # maximum movement in one coordinate per time interval
-      min.move <- 0
+      max.move <- round(mat.dim/2, 0) # maximum movement (cells) in one coordinate axis per time interval
+      min.move <- 0 # minimum number of cells to move
       move.prob <- 0.5 # probability of moving in a given time interval
       move.pr.red <- 0.2 # equates to an 80% reduction in movement probability
       move.pr <- move.prob*move.pr.red
       exp.pr <- 0.5 # probability of exposure (decreases with increasing temporal distancing)
         
       # infection spread
-      t.steps <- 50
-      iter <- 1000
+      t.steps <- 50 # number of time steps
+      iter <- 1000 # number of iterations
       itdiv <- iter/10
       tot.inf.out <- matrix(data=NA, nrow=iter, ncol=t.steps+1)
       
@@ -129,7 +129,7 @@
                     }
                   }
       
-                  # cannot move min cols; try other direction
+                  # cannot move min cols
                   for (n in 1:n.infected) {
                     if (i + move.row.rn[n]*dir.row.rn[n] < mat.dim & i + move.row.rn[n]*dir.row.rn[n] > 0) {
                       if (j + move.col.rn[n]*dir.col.rn[n] < mat.dim & j + move.col.rn[n]*dir.col.rn[n] < 0) {
@@ -201,7 +201,7 @@
                     }
                   }
                   
-                  # cannot move min cols; try other direction
+                  # cannot move min cols
                   for (n in 1:n.not.infected) {
                     if (rbinom(1,1,move.pr) == 1)  {
                       if (((i + move.row.rn[n]*dir.row.rn[n]) < mat.dim) & ((i + move.row.rn[n]*dir.row.rn[n]) > 0)) {
@@ -229,9 +229,9 @@
         
       } # end s loop
       
-      inf.ts.med <- apply(tot.inf.out, MARGIN=2, median, na.rm=T)
-      inf.ts.lo <- apply(tot.inf.out, MARGIN=2, quantile, probs=0.025, na.rm=T)
-      inf.ts.up <- apply(tot.inf.out, MARGIN=2, quantile, probs=0.975, na.rm=T)
+      inf.ts.med <- apply(tot.inf.out, MARGIN=2, median, na.rm=T) # median number of infections
+      inf.ts.lo <- apply(tot.inf.out, MARGIN=2, quantile, probs=0.025, na.rm=T) # lower 95% confidence limit
+      inf.ts.up <- apply(tot.inf.out, MARGIN=2, quantile, probs=0.975, na.rm=T) # upper 95% confidence limit
       
       plot(1:(t.steps+1), inf.ts.med, type="l", xlab="time", ylab="number infected")
       lines(1:(t.steps+1), inf.ts.lo, lty=2, col="red")
@@ -239,4 +239,4 @@
       
       out.dat <- data.frame(1:(t.steps+1), inf.ts.med, inf.ts.up, inf.ts.lo)
       colnames(out.dat) <- c("step", "med", "up", "lo")
-      write.table(out.dat,file="80pcMoveRedHalfExp.out.out.csv",sep=",", row.names = F, col.names = T)
+      write.table(out.dat,file="80pcMoveRedHalfExp.out.out.csv",sep=",", row.names = F, col.names = T) # save output file
