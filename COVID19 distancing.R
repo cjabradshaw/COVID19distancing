@@ -239,5 +239,4 @@
       
       out.dat <- data.frame(1:(t.steps+1), inf.ts.med, inf.ts.up, inf.ts.lo)
       colnames(out.dat) <- c("step", "med", "up", "lo")
-      setwd("~/Documents/Papers/Disease/COVID-19")
       write.table(out.dat,file="80pcMoveRedHalfExp.out.out.csv",sep=",", row.names = F, col.names = T)
