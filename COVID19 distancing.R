@@ -1,4 +1,4 @@
-      ## physical and temporal distancing COVID-19
+      ## spatial and temporal distancing COVID-19
       ## example code
       ## CJA Bradshaw
       ## March 2020
