@@ -1,8 +1,12 @@
 # COVID19distancing
 
-This R code accompanies a Conversation article on the effects of spatial and temporal physical distancing in reducing the rate of COVID-19 infection (authors: Mike Lee, Corey Bradshaw, Craig Dalton)
+This R code accompanies a Conversation article on the effects of spatial and temporal physical distancing in reducing the rate of COVID-19 infection 
 
-Contact: Professor Corey J. A. Bradshaw, Global Ecology, College of Science and Engineering, GPO Box 2100, Flinders University, Adelaide, South Australia 5001, Australia
+Authors: Mike Lee (https://www.flinders.edu.au/people/mike.lee),
+         Corey Bradshaw (http://www.flinders.edu.au/people/corey.bradshaw),
+         Craig Dalton (https://www.newcastle.edu.au/profile/craig-dalton)
+
+For code queries, contact: Professor Corey J. A. Bradshaw, Global Ecology, College of Science and Engineering, GPO Box 2100, Flinders University, Adelaide, South Australia 5001, Australia
 
 corey.bradshaw@flinders.edu.au
 +61 (0) 400 697 665
