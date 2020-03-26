@@ -88,9 +88,9 @@
                   dir.row.rn <- sample(c(-1,1), n.infected, replace=T) # direction rows
                   dir.col.rn <- sample(c(-1,1), n.infected, replace=T) # direction columns
             
-                  if (rbinom(1,1,move.pr) == 1)  {
-                    ## both directions ok
-                    for (n in 1:n.infected) {
+                                    ## both directions ok
+                  for (n in 1:n.infected) {
+                    if (rbinom(1,1,move.pr) == 1)  {
                       if (i + move.row.rn[n]*dir.row.rn[n] < mat.dim & i + move.row.rn[n]*dir.row.rn[n] > 0) {
                         if (j + move.col.rn[n]*dir.col.rn[n] < mat.dim & j + move.col.rn[n]*dir.col.rn[n] > 0) {
                           infect.mat[i + move.row.rn[n]*dir.row.rn[n], j + move.col.rn[n]*dir.col.rn[n]] <- infect.mat[i + move.row.rn[n]*dir.row.rn[n], j + move.col.rn[n]*dir.col.rn[n]] + 1
@@ -98,52 +98,56 @@
                         }
                       }
                     }
-        
-                    # cannot move max rows; try other direction
-                    for (n in 1:n.infected) {
+                  }
+                  # cannot move max rows; try other direction
+                  for (n in 1:n.infected) {
+                    if (rbinom(1,1,move.pr) == 1)  {
                       if (i + move.row.rn[n]*dir.row.rn[n] > mat.dim & i + move.row.rn[n]*dir.row.rn[n] > 0) {
                         if (j + move.col.rn[n]*dir.col.rn[n] < mat.dim & j + move.col.rn[n]*dir.col.rn[n] > 0) {
                           infect.mat[i + move.row.rn[n]*-1*dir.row.rn[n], j + move.col.rn[n]*dir.col.rn[n]] <- infect.mat[i + move.row.rn[n]*-1*dir.row.rn[n], j + move.col.rn[n]*dir.col.rn[n]] + 1
                           infect.mat[i, j] <- ifelse((infect.mat[i, j] - 1) < 0, 0, infect.mat[i, j] - 1)
+                         }
                         }
                       }
-                    }
-                    
+                    } 
                     # cannot move min rows; try other direction
                     for (n in 1:n.infected) {
-                      if (i + move.row.rn[n]*dir.row.rn[n] < mat.dim & i + move.row.rn[n]*dir.row.rn[n] < 0) {
+                      if (rbinom(1,1,move.pr) == 1)  {
+                        if (i + move.row.rn[n]*dir.row.rn[n] < mat.dim & i + move.row.rn[n]*dir.row.rn[n] < 0) {
                         if (j + move.col.rn[n]*dir.col.rn[n] < mat.dim & j + move.col.rn[n]*dir.col.rn[n] > 0) {
                           infect.mat[i + move.row.rn[n]*-1*dir.row.rn[n], j + move.col.rn[n]*dir.col.rn[n]] <- infect.mat[i + move.row.rn[n]*-1*dir.row.rn[n], j + move.col.rn[n]*dir.col.rn[n]] + 1
                           infect.mat[i, j] <- ifelse((infect.mat[i, j] - 1) < 0, 0, infect.mat[i, j] - 1)
+                          }
                         }
-                      }
-                  }
-      
+                      } 
+                    }
                   # cannot move max cols; try other direction
                   for (n in 1:n.infected) {
-                    if (i + move.row.rn[n]*dir.row.rn[n] < mat.dim & i + move.row.rn[n]*dir.row.rn[n] > 0) {
+                    if (rbinom(1,1,move.pr) == 1)  {
+                      if (i + move.row.rn[n]*dir.row.rn[n] < mat.dim & i + move.row.rn[n]*dir.row.rn[n] > 0) {
                       if (j + move.col.rn[n]*dir.col.rn[n] > mat.dim & j + move.col.rn[n]*dir.col.rn[n] > 0) {
                         infect.mat[i + move.row.rn[n]*dir.row.rn[n], j + move.col.rn[n]*-1*dir.col.rn[n]] <- infect.mat[i + move.row.rn[n]*dir.row.rn[n], j + move.col.rn[n]*-1*dir.col.rn[n]] + 1
                         infect.mat[i, j] <- ifelse((infect.mat[i, j] - 1) < 0, 0, infect.mat[i, j] - 1)
+                        }
                       }
                     }
                   }
-      
-                  # cannot move min cols
+                  # cannot move min cols; try other direction
                   for (n in 1:n.infected) {
-                    if (i + move.row.rn[n]*dir.row.rn[n] < mat.dim & i + move.row.rn[n]*dir.row.rn[n] > 0) {
+                    if (rbinom(1,1,move.pr) == 1)  {
+                      if (i + move.row.rn[n]*dir.row.rn[n] < mat.dim & i + move.row.rn[n]*dir.row.rn[n] > 0) {
                       if (j + move.col.rn[n]*dir.col.rn[n] < mat.dim & j + move.col.rn[n]*dir.col.rn[n] < 0) {
                         infect.mat[i + move.row.rn[n]*dir.row.rn[n], j + move.col.rn[n]*-1*dir.col.rn[n]] <- infect.mat[i + move.row.rn[n]*dir.row.rn[n], j + move.col.rn[n]*-1*dir.col.rn[n]] + 1
                         infect.mat[i, j] <- ifelse((infect.mat[i, j] - 1) < 0, 0, infect.mat[i, j] - 1)
+                        }
                       }
                     }
                   }
                   # recalculate infected & non-infected
                   n.infected <- infect.mat[i,j]
                   n.not.infected <- not.infect.mat[i,j]
-                  
                 }
-              }
+              
               
               # move non-infected people now
               if (n.not.infected > 0) {
@@ -219,6 +223,7 @@
           
           # sum total infected
           infect.n[t] <- sum(infect.mat)
+          image(infect.mat, col=rev(heat.colors(10,1)))
           #print(t)
         
         } # end t loop
