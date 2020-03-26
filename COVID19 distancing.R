@@ -1,28 +1,28 @@
       ## spatial and temporal distancing COVID-19
-      ## example code
-      ## CJA Bradshaw
+      ## CJA Bradshaw, Flinders University
+      ## corey.bradshaw@flinders.edu.au
       ## March 2020
       
       ## remove everything
       rm(list = ls())
       
       # set up spatial matrix
-      mat.dim <- 20 # size of matrix (landscape)
+      mat.dim <- 20
       spat.layer <- matrix(data=0, nrow=mat.dim, ncol=mat.dim)
       
       popn <- 1000 # population size
-      infect.pr <- 0.02 # probability of infection between two individuals per time step
+      infect.pr <- 0.02
       
-      max.move <- round(mat.dim/2, 0) # maximum movement (cells) in one coordinate axis per time interval
-      min.move <- 0 # minimum number of cells to move
+      max.move <- round(mat.dim/2, 0) # maximum movement in one coordinate per time interval
+      min.move <- 0
       move.prob <- 0.5 # probability of moving in a given time interval
       move.pr.red <- 0.2 # equates to an 80% reduction in movement probability
       move.pr <- move.prob*move.pr.red
       exp.pr <- 0.5 # probability of exposure (decreases with increasing temporal distancing)
         
       # infection spread
-      t.steps <- 50 # number of time steps
-      iter <- 1000 # number of iterations
+      t.steps <- 50
+      iter <- 1000
       itdiv <- iter/10
       tot.inf.out <- matrix(data=NA, nrow=iter, ncol=t.steps+1)
       
@@ -56,7 +56,6 @@
         infect.n[1] <- init.infect
         
         for (t in 2:(t.steps+1)) {
-        
           for (i in 1:mat.dim) {
             for (j in 1:mat.dim) {
               
@@ -88,7 +87,8 @@
                   dir.row.rn <- sample(c(-1,1), n.infected, replace=T) # direction rows
                   dir.col.rn <- sample(c(-1,1), n.infected, replace=T) # direction columns
             
-                                    ## both directions ok
+                  
+                  ## both directions ok
                   for (n in 1:n.infected) {
                     if (rbinom(1,1,move.pr) == 1)  {
                       if (i + move.row.rn[n]*dir.row.rn[n] < mat.dim & i + move.row.rn[n]*dir.row.rn[n] > 0) {
@@ -99,6 +99,7 @@
                       }
                     }
                   }
+                  
                   # cannot move max rows; try other direction
                   for (n in 1:n.infected) {
                     if (rbinom(1,1,move.pr) == 1)  {
@@ -110,8 +111,9 @@
                         }
                       }
                     } 
-                    # cannot move min rows; try other direction
-                    for (n in 1:n.infected) {
+                  
+                  # cannot move min rows; try other direction
+                  for (n in 1:n.infected) {
                       if (rbinom(1,1,move.pr) == 1)  {
                         if (i + move.row.rn[n]*dir.row.rn[n] < mat.dim & i + move.row.rn[n]*dir.row.rn[n] < 0) {
                         if (j + move.col.rn[n]*dir.col.rn[n] < mat.dim & j + move.col.rn[n]*dir.col.rn[n] > 0) {
@@ -121,6 +123,7 @@
                         }
                       } 
                     }
+                  
                   # cannot move max cols; try other direction
                   for (n in 1:n.infected) {
                     if (rbinom(1,1,move.pr) == 1)  {
@@ -132,7 +135,8 @@
                       }
                     }
                   }
-                  # cannot move min cols; try other direction
+                  
+                  # cannot move min cols
                   for (n in 1:n.infected) {
                     if (rbinom(1,1,move.pr) == 1)  {
                       if (i + move.row.rn[n]*dir.row.rn[n] < mat.dim & i + move.row.rn[n]*dir.row.rn[n] > 0) {
@@ -143,14 +147,14 @@
                       }
                     }
                   }
+                  
                   # recalculate infected & non-infected
                   n.infected <- infect.mat[i,j]
                   n.not.infected <- not.infect.mat[i,j]
                 }
               
-              
-              # move non-infected people now
-              if (n.not.infected > 0) {
+                # move non-infected people now
+                if (n.not.infected > 0) {
                 move.row.rn <- sample(min.move:max.move, n.not.infected, replace=T) # move rows
                 move.col.rn <- sample(min.move:max.move, n.not.infected, replace=T) # move columns
                 
@@ -217,13 +221,13 @@
                     }
                   }
                 }
-              } 
+              }
             } # end j loop
           } # end i loop
           
           # sum total infected
           infect.n[t] <- sum(infect.mat)
-          image(infect.mat, col=rev(heat.colors(10,1)))
+          #image(infect.mat, col=rev(heat.colors(10,1)))
           #print(t)
         
         } # end t loop
@@ -234,9 +238,9 @@
         
       } # end s loop
       
-      inf.ts.med <- apply(tot.inf.out, MARGIN=2, median, na.rm=T) # median number of infections
-      inf.ts.lo <- apply(tot.inf.out, MARGIN=2, quantile, probs=0.025, na.rm=T) # lower 95% confidence limit
-      inf.ts.up <- apply(tot.inf.out, MARGIN=2, quantile, probs=0.975, na.rm=T) # upper 95% confidence limit
+      inf.ts.med <- apply(tot.inf.out, MARGIN=2, median, na.rm=T)
+      inf.ts.lo <- apply(tot.inf.out, MARGIN=2, quantile, probs=0.025, na.rm=T)
+      inf.ts.up <- apply(tot.inf.out, MARGIN=2, quantile, probs=0.975, na.rm=T)
       
       plot(1:(t.steps+1), inf.ts.med, type="l", xlab="time", ylab="number infected")
       lines(1:(t.steps+1), inf.ts.lo, lty=2, col="red")
@@ -244,4 +248,4 @@
       
       out.dat <- data.frame(1:(t.steps+1), inf.ts.med, inf.ts.up, inf.ts.lo)
       colnames(out.dat) <- c("step", "med", "up", "lo")
-      write.table(out.dat,file="80pcMoveRedHalfExp.out.out.csv",sep=",", row.names = F, col.names = T) # save output file
+      write.table(out.dat,file="20pcMove50pcExp.out.csv",sep=",", row.names = F, col.names = T)
