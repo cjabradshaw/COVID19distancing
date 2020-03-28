@@ -1,6 +1,6 @@
 # COVID19distancing
 
-This R code accompanies a Conversation article on the effects of spatial and temporal physical distancing in reducing the rate of COVID-19 infection 
+This R code accompanies a Conversation article on the effects of spatial and temporal physical distancing in reducing the rate of COVID-19 infection: 'Want to make social distancing even more effective? It’s about time (as well as space)' (https://theconversation.com/want-to-make-social-distancing-even-more-effective-its-about-time-as-well-as-space-134551)
 
 Authors: Mike Lee (https://www.flinders.edu.au/people/mike.lee),
          Corey Bradshaw (http://www.flinders.edu.au/people/corey.bradshaw),
