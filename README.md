@@ -1,10 +1,11 @@
 # COVID19distancing
 
-This R code accompanies a Conversation article on the effects of spatial and temporal physical distancing in reducing the rate of COVID-19 infection: 'Want to make social distancing even more effective? It’s about time (as well as space)' (https://theconversation.com/want-to-make-social-distancing-even-more-effective-its-about-time-as-well-as-space-134551)
+This <a href="https://github.com/cjabradshaw/COVID19distancing/blob/master/COVID19%20distancing.R">R code</a> accompanies a <em>The Conversation</em> article on the effects of spatial and temporal physical distancing in reducing the rate of COVID-19 infection: '<a href="https://theconversation.com/want-to-make-social-distancing-even-more-effective-its-about-time-as-well-as-space-134551">Want to make social distancing even more effective? It’s about time (as well as space)</a>'
 
-Authors: Mike Lee (https://www.flinders.edu.au/people/mike.lee),
-         Corey Bradshaw (http://www.flinders.edu.au/people/corey.bradshaw),
-         Craig Dalton (https://www.newcastle.edu.au/profile/craig-dalton)
+Authors:
+- <a href="https://www.flinders.edu.au/people/mike.lee">Mike Lee</a>
+- <a href="http://www.flinders.edu.au/people/corey.bradshaw">Corey Bradshaw<a/>
+- <a href="https://www.newcastle.edu.au/profile/craig-dalton">Craig Dalton</a>
 
 For code queries, contact: Professor Corey J. A. Bradshaw, Global Ecology, College of Science and Engineering, GPO Box 2100, Flinders University, Adelaide, South Australia 5001, Australia
 
