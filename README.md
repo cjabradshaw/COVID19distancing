@@ -1,4 +1,5 @@
-# COVID19distancing
+# COVID19 temporal distancing analysis
+<img align="right" src="socialDistance.png" alt="social distancing" width="200" style="margin-top: 20px">
 
 This <a href="https://github.com/cjabradshaw/COVID19distancing/blob/master/COVID19%20distancing.R">R code</a> accompanies a <em>The Conversation</em> article on the effects of spatial and temporal physical distancing in reducing the rate of COVID-19 infection: '<a href="https://theconversation.com/want-to-make-social-distancing-even-more-effective-its-about-time-as-well-as-space-134551">Want to make social distancing even more effective? It’s about time (as well as space</a>'
 
